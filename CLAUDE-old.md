@@ -10,6 +10,7 @@ This is a Next.js 16 boilerplate for building AI-powered applications with authe
 - **AI Integration**: Vercel AI SDK 5 + OpenRouter (access to 100+ AI models)
 - **Authentication**: BetterAuth with Email/Password and Google auth
 - **Database**: PostgreSQL with Drizzle ORM
+- **UI**: shadcn/ui components with Tailwind CSS 4
 - **Styling**: Tailwind CSS with dark mode support (next-themes)
 
 ## AI Integration with OpenRouter
@@ -153,6 +154,7 @@ The project includes technical documentation in `docs/`:
 5. **Styling Guidelines**
 
    - Stick to standard Tailwind CSS utility classes
+   - Use shadcn/ui color tokens (e.g., `bg-background`, `text-foreground`)
    - Avoid custom colors unless explicitly requested
    - Support dark mode with appropriate Tailwind classes
 
@@ -178,7 +180,14 @@ The project includes technical documentation in `docs/`:
    - Example: `const result = await upload(buffer, "avatar.png", "avatars")`
    - Storage switches based on `BLOB_READ_WRITE_TOKEN` environment variable
 
-9. **API Routes**
+9. **Component Creation**
+
+   - Use existing shadcn/ui components when possible
+   - Follow the established patterns in `src/components/ui/`
+   - Support both light and dark modes
+   - Use TypeScript with proper types
+
+10. **API Routes**
    - Follow Next.js 16 App Router conventions
    - Use Route Handlers (route.ts files)
    - Return Response objects
