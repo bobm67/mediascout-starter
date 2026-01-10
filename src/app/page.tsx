@@ -27,7 +27,7 @@ export default function Home() {
               Mediascout Starter Kit
             </h1>
           </div>
-          <h2 className="text-2xl font-semibold text-muted-foreground">
+          <h2 className="text-2xl font-bold text-muted-foreground">
             Complete Boilerplate for AI Applications
           </h2>
           <p className="text-xl text-muted-foreground">
@@ -38,7 +38,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
           <div className="p-6 border rounded-lg">
-            <h3 className="font-semibold mb-2 flex items-center gap-2">
+            <h3 className="font-bold mb-2 flex items-center gap-2">
               <Shield className="h-4 w-4" />
               Authentication
             </h3>
@@ -47,7 +47,7 @@ export default function Home() {
             </p>
           </div>
           <div className="p-6 border rounded-lg">
-            <h3 className="font-semibold mb-2 flex items-center gap-2">
+            <h3 className="font-bold mb-2 flex items-center gap-2">
               <Database className="h-4 w-4" />
               Database
             </h3>
@@ -56,7 +56,7 @@ export default function Home() {
             </p>
           </div>
           <div className="p-6 border rounded-lg">
-            <h3 className="font-semibold mb-2 flex items-center gap-2">
+            <h3 className="font-bold mb-2 flex items-center gap-2">
               <Bot className="h-4 w-4" />
               AI Ready
             </h3>
@@ -65,7 +65,7 @@ export default function Home() {
             </p>
           </div>
           <div className="p-6 border rounded-lg">
-            <h3 className="font-semibold mb-2 flex items-center gap-2">
+            <h3 className="font-bold mb-2 flex items-center gap-2">
               <Palette className="h-4 w-4" />
               UI Components
             </h3>
@@ -78,10 +78,10 @@ export default function Home() {
         <div className="space-y-6 mt-12">
           <SetupChecklist />
 
-          <h3 className="text-2xl font-semibold">Next Steps</h3>
+          <h3 className="text-2xl font-bold">Next Steps</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
             <div className="p-4 border rounded-lg">
-              <h4 className="font-medium mb-2">
+              <h4 className="font-bold mb-2">
                 1. Set up environment variables
               </h4>
               <p className="text-sm text-muted-foreground mb-2">
@@ -96,7 +96,7 @@ export default function Home() {
               </ul>
             </div>
             <div className="p-4 border rounded-lg">
-              <h4 className="font-medium mb-2">2. Set up your database</h4>
+              <h4 className="font-bold mb-2">2. Set up your database</h4>
               <p className="text-sm text-muted-foreground mb-2">
                 Run database migrations:
               </p>
@@ -110,7 +110,7 @@ export default function Home() {
               </div>
             </div>
             <div className="p-4 border rounded-lg">
-              <h4 className="font-medium mb-2">3. Try the features</h4>
+              <h4 className="font-bold mb-2">3. Try the features</h4>
               <div className="space-y-2">
                 {loading || !isAuthReady ? (
                   <Button size="sm" className="w-full" disabled={true}>
@@ -143,7 +143,7 @@ export default function Home() {
               </div>
             </div>
             <div className="p-4 border rounded-lg">
-              <h4 className="font-medium mb-2">4. Start building</h4>
+              <h4 className="font-bold mb-2">4. Start building</h4>
               <p className="text-sm text-muted-foreground mb-3">
                 Customize the components, add your own pages, and build your
                 application on top of this solid foundation.

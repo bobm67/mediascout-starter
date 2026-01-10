@@ -1,9 +1,27 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { UserProfile } from "@/components/auth/user-profile";
 import { ModeToggle } from "./ui/mode-toggle";
 
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/dashboard", label: "Dashboard" },
+  { href: "/chat", label: "Chat" },
+];
+
 export function SiteHeader() {
+  const pathname = usePathname();
+
+  const getNavLinkClassName = (path: string) =>
+    `inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors ${
+      pathname === path
+        ? "text-mediascout-orange border-b-2 border-mediascout-orange"
+        : "text-foreground hover:text-mediascout-orange"
+    }`;
+
   return (
     <>
       {/* Skip to main content link for accessibility */}
@@ -13,33 +31,56 @@ export function SiteHeader() {
       >
         Skip to main content
       </a>
-      <header className="border-b" role="banner">
+      <header
+        className="sticky top-0 z-50 border-b border-mediascout-silver/20 bg-background/95 backdrop-blur-sm"
+        role="banner"
+      >
         <nav
-          className="container mx-auto px-4 py-4 flex justify-between items-center"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center"
           aria-label="Main navigation"
         >
-          <h1 className="text-2xl font-bold">
+          {/* Logo and Brand */}
+          <div className="flex items-center">
             <Link
               href="/"
-              className="flex items-center gap-2 hover:opacity-80 transition-opacity"
-              aria-label="Mediascout Starter Kit - Go to homepage"
+              className="flex items-center space-x-3"
+              aria-label="Mediascout - Go to homepage"
             >
               <Image
                 src="/logo.png"
-                alt="Mediascout Starter Kit"
-                width={120}
-                height={40}
-                className="h-8 w-auto"
+                alt="Mediascout"
+                width={32}
+                height={32}
+                className="h-8 w-auto max-h-[32px] object-contain"
                 priority
               />
-              <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                Mediascout Starter Kit
+              <span className="text-xl font-bold text-mediascout-orange">
+                Mediascout
               </span>
             </Link>
-          </h1>
-          <div className="flex items-center gap-4" role="group" aria-label="User actions">
-            <UserProfile />
+
+            {/* Navigation Links - hidden on mobile */}
+            <div className="hidden sm:flex sm:ml-8 sm:space-x-8">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={getNavLinkClassName(link.href)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div
+            className="flex items-center space-x-2 sm:space-x-4"
+            role="group"
+            aria-label="User actions"
+          >
             <ModeToggle />
+            <UserProfile />
           </div>
         </nav>
       </header>
