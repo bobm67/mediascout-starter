@@ -18,6 +18,7 @@
    - Avoid custom colors unless explicitly requested
    - Support dark mode with appropriate Tailwind classes
 3. **Component Creation**
+   - Reuse existing components instead of creating new ones - search codebase first  
    - Use existing shadcn/ui components when possible
    - Follow the established patterns in `src/components/ui/`
    - Support both light and dark modes
