@@ -19,7 +19,7 @@ const legalLinks = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-mediascout-slate border-t border-mediascout-silver/30">
+    <footer className="bg-mediascout-navy-deep border-t border-mediascout-silver/30">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Column */}
@@ -36,14 +36,14 @@ export function SiteFooter() {
                 Mediascout
               </span>
             </div>
-            <p className="mt-4 text-base text-mediascout-gray">
+            <p className="mt-4 text-base text-white">
               AI-powered applications for modern teams.
             </p>
           </div>
 
           {/* Product Links */}
           <div>
-            <h3 className="text-sm font-semibold text-mediascout-silver tracking-wider uppercase">
+            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
               Product
             </h3>
             <ul className="mt-4 space-y-4">
@@ -51,7 +51,7 @@ export function SiteFooter() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-base text-mediascout-gray hover:text-mediascout-orange transition-colors"
+                    className="text-base text-white hover:text-mediascout-orange transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -62,7 +62,7 @@ export function SiteFooter() {
 
           {/* Company Links */}
           <div>
-            <h3 className="text-sm font-semibold text-mediascout-silver tracking-wider uppercase">
+            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
               Company
             </h3>
             <ul className="mt-4 space-y-4">
@@ -70,7 +70,7 @@ export function SiteFooter() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-base text-mediascout-gray hover:text-mediascout-orange transition-colors"
+                    className="text-base text-white hover:text-mediascout-orange transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -81,7 +81,7 @@ export function SiteFooter() {
 
           {/* Legal Links */}
           <div>
-            <h3 className="text-sm font-semibold text-mediascout-silver tracking-wider uppercase">
+            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
               Legal
             </h3>
             <ul className="mt-4 space-y-4">
@@ -89,7 +89,7 @@ export function SiteFooter() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-base text-mediascout-gray hover:text-mediascout-orange transition-colors"
+                    className="text-base text-white hover:text-mediascout-orange transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -101,7 +101,7 @@ export function SiteFooter() {
 
         {/* Copyright */}
         <div className="mt-8 border-t border-mediascout-silver/30 pt-8">
-          <p className="text-base text-mediascout-gray text-center">
+          <p className="text-base text-white text-center">
             &copy; {new Date().getFullYear()} Mediascout. All rights reserved.
           </p>
         </div>
