@@ -1,33 +1,42 @@
-# Agentic Coding Boilerplate - Components Guidelines
+# Components Guidelines
 
-## Components Overview
+## Subagent Requirement
+**ALWAYS use subagents for all file operations, testing, debugging, and code changes in this directory.**
 
-### Tech Stack
-- **UI**: shadcn/ui components with Tailwind CSS 4
-- **Styling**: Tailwind CSS with dark mode support (next-themes)
+## Rules
 
-## Guidelines for components
+### Component Organization
+- `auth/` - Authentication components (sign-in, sign-up, etc.)
+- `ui/` - shadcn/ui base components
+- Root level - App-specific composed components
 
-### CRITICAL RULES
+### Styling
+- Use standard Tailwind CSS utility classes only
+- Avoid custom colors unless explicitly requested
+- Support dark mode with appropriate Tailwind classes
+- Use `cn()` utility from `@/lib/utils` for conditional classes
 
-1. **ALWAYS use subagents for all file operations, testing, debugging, and code changes**  
-  - this is a strict requirement
-2. **Styling Guidelines**
-   - Stick to standard Tailwind CSS utility classes
-   - Use shadcn/ui color tokens (e.g., `bg-background`, `text-foreground`)
-   - Avoid custom colors unless explicitly requested
-   - Support dark mode with appropriate Tailwind classes
-3. **Component Creation**
-   - Reuse existing components instead of creating new ones - search codebase first  
-   - Use existing shadcn/ui components when possible
-   - Follow the established patterns in `src/components/ui/`
-   - Support both light and dark modes
-   - Use TypeScript with proper types
+### Client vs Server Components
+- Default to Server Components
+- Add `"use client"` only when using:
+  - React hooks (useState, useEffect, etc.)
+  - Browser APIs
+  - Event handlers
+  - Client-side auth hooks
 
+### Auth Components
+- Client-side auth: Import from `@/lib/auth-client`
+- Use existing components in `auth/` folder as patterns
+- Don't duplicate auth logic - extend existing components
 
 ### Best Practices
+- Keep components small and focused
+- Extract reusable logic to custom hooks
+- Use TypeScript interfaces for props
+- Provide default props where sensible
+- Document complex components with comments
 
-- Use subagents for all file operations, testing, debugging, and code changes  - this is a strict requirement
-- Read existing code patterns before creating new components
-- Maintain consistency with established components
-- Use the documentation-finder skill when implementing related features
+## After Changes
+```bash
+pnpm run lint && pnpm run typecheck
+```
