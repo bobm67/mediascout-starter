@@ -4,22 +4,28 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserProfile } from "@/components/auth/user-profile";
+import { useSession } from "@/lib/auth-client";
 import { ModeToggle } from "./ui/mode-toggle";
 
-const navLinks = [
+const publicLinks = [
   { href: "/", label: "Home" },
+];
+
+const protectedLinks = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/chat", label: "Chat" },
 ];
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const { data: session } = useSession();
+  const navLinks = session ? [...publicLinks, ...protectedLinks] : publicLinks;
 
   const getNavLinkClassName = (path: string) =>
     `inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors ${
       pathname === path
         ? "text-mediascout-orange border-b-2 border-mediascout-orange"
-        : "text-foreground hover:text-mediascout-orange"
+        : "text-white hover:text-mediascout-orange"
     }`;
 
   return (
@@ -27,12 +33,12 @@ export function SiteHeader() {
       {/* Skip to main content link for accessibility */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-background focus:text-foreground focus:border focus:rounded-md"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-[#020617] focus:border focus:rounded-md"
       >
         Skip to main content
       </a>
       <header
-        className="sticky top-0 z-50 border-b border-mediascout-silver/20 bg-background/95 backdrop-blur-sm"
+        className="sticky top-0 z-50 border-b border-mediascout-silver/20 bg-[#020617]"
         role="banner"
       >
         <nav

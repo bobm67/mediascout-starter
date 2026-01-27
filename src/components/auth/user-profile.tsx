@@ -1,5 +1,6 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { User, LogOut } from "lucide-react";
@@ -18,16 +19,21 @@ import { useSession, signOut } from "@/lib/auth-client";
 export function UserProfile() {
   const { data: session, isPending } = useSession();
   const router = useRouter();
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
-  if (isPending) {
-    return <div>Loading...</div>;
+  if (!mounted || isPending) {
+    return <div className="flex items-center gap-2 h-8" aria-hidden="true" />;
   }
 
   if (!session) {
     return (
       <div className="flex items-center gap-2">
         <Link href="/login">
-          <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" className="text-white hover:text-mediascout-orange hover:bg-white/10">
             Sign in
           </Button>
         </Link>
@@ -53,7 +59,7 @@ export function UserProfile() {
             alt={session.user?.name || "User"}
             referrerPolicy="no-referrer"
           />
-          <AvatarFallback>
+          <AvatarFallback className="bg-mediascout-navy-light text-white border border-white/20">
             {(
               session.user?.name?.[0] ||
               session.user?.email?.[0] ||
@@ -62,13 +68,13 @@ export function UserProfile() {
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
+      <DropdownMenuContent align="end" className="w-56 text-[#020617] dark:text-white">
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">
               {session.user?.name}
             </p>
-            <p className="text-xs leading-none text-muted-foreground">
+            <p className="text-xs leading-none text-[#64748b] dark:text-[#94a3b8]">
               {session.user?.email}
             </p>
           </div>

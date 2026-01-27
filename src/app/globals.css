@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Use class-based dark mode to match next-themes (attribute="class") */
+@variant dark (&:where(.dark, .dark *));
+
 /* Mediascout Design System Colors */
 @theme inline {
   /* Core semantic colors mapped to Mediascout palette */
