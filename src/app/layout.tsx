@@ -5,6 +5,8 @@ import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
+import App from "next/app";
+import { AppTopLoader } from "@/components/AppTopLoader";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -90,7 +92,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${manrope.variable} ${firaCode.variable} font-sans antialiased min-h-screen flex flex-col`}
+        className={`${manrope.variable} ${firaCode.variable} flex min-h-screen flex-col font-sans antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -98,8 +100,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <AppTopLoader />
           <SiteHeader />
-          <main id="main-content" className="flex-grow">{children}</main>
+          <main id="main-content" className="flex-grow">
+            {children}
+          </main>
           <SiteFooter />
           <Toaster richColors position="top-right" />
         </ThemeProvider>
