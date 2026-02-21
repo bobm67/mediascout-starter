@@ -31,6 +31,8 @@ interface DiagnosticsResponse {
   overallStatus: StatusLevel;
 }
 
+const DB_CONNECTION_TIMEOUT_MS = 5000;
+
 // This endpoint is intentionally public (no auth required) because it's used
 // by the setup checklist on the homepage before users are logged in.
 // It only returns boolean flags about configuration status, not sensitive data.
@@ -79,7 +81,7 @@ export async function GET(req: Request) {
       })();
 
       const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error("Database connection timeout (5s)")), 5000)
+        setTimeout(() => reject(new Error("Database connection timeout (5s)")), DB_CONNECTION_TIMEOUT_MS)
       );
 
       await Promise.race([dbCheckPromise, timeoutPromise]);

@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+const STAR_COUNT_ABBREVIATION_THRESHOLD = 1000;
+
 interface GitHubStarsProps {
   repo: string;
 }
@@ -31,8 +33,8 @@ export function GitHubStars({ repo }: GitHubStarsProps) {
   }, [repo]);
 
   const formatStars = (count: number) => {
-    if (count >= 1000) {
-      return `${(count / 1000).toFixed(1)}k`;
+    if (count >= STAR_COUNT_ABBREVIATION_THRESHOLD) {
+      return `${(count / STAR_COUNT_ABBREVIATION_THRESHOLD).toFixed(1)}k`;
     }
     return count.toString();
   };

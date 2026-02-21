@@ -43,7 +43,7 @@ export function SiteFooter() {
 
           {/* Product Links */}
           <div>
-            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
+            <h3 className="text-sm font-semibold text-[#C0C0C0] tracking-wider uppercase mb-4">
               Product
             </h3>
             <ul className="mt-4 space-y-4">
@@ -62,7 +62,7 @@ export function SiteFooter() {
 
           {/* Company Links */}
           <div>
-            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
+            <h3 className="text-sm font-semibold text-[#C0C0C0] tracking-wider uppercase mb-4">
               Company
             </h3>
             <ul className="mt-4 space-y-4">
@@ -81,7 +81,7 @@ export function SiteFooter() {
 
           {/* Legal Links */}
           <div>
-            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">
+            <h3 className="text-sm font-semibold text-[#C0C0C0] tracking-wider uppercase mb-4">
               Legal
             </h3>
             <ul className="mt-4 space-y-4">
@@ -101,8 +101,10 @@ export function SiteFooter() {
 
         {/* Copyright */}
         <div className="mt-8 border-t border-mediascout-silver/30 pt-8">
-          <p className="text-base text-white text-center">
-            &copy; {new Date().getFullYear()} Mediascout. All rights reserved.
+          <p className="text-center text-sm text-white">
+            &copy; {new Date().getFullYear()}{" "}
+            <span className="text-[#F25802] font-semibold">Mediascout Starter Kit</span>
+            . All rights reserved.
           </p>
         </div>
       </div>

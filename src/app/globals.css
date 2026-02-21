@@ -1,11 +1,10 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-/* Use class-based dark mode to match next-themes (attribute="class") */
-@variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:is(.dark *));
 
-/* Mediascout Design System Colors */
 @theme inline {
-  /* Core semantic colors mapped to Mediascout palette */
+  /* Core semantic colors mapped to CSS variables */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -24,11 +23,26 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
+
+  /* Font families - Geist (Next.js built-in) */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* Mediascout Brand Colors */
+  --color-mediascout-navy-deep: #020617;
+  --color-mediascout-navy-light: #0f172a;
+  --color-mediascout-orange: #F25802;
+  --color-mediascout-silver: #C0C0C0;
+  --color-mediascout-silver-dim: #94a3b8;
+  --color-mediascout-white: #FFFFFF;
+
+  /* Semantic Colors */
+  --color-success: #10B981;
+  --color-error: #EF4444;
+  --color-warning: #F59E0B;
+  --color-info: #3B82F6;
+
+  /* Sidebar colors */
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -38,39 +52,21 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Mediascout Brand Colors */
-  --color-mediascout-navy-deep: #020617;
-  --color-mediascout-navy-light: #0f172a;
-  --color-mediascout-orange: #F25802;
-  --color-mediascout-silver: #C0C0C0;
-  --color-mediascout-silver-dim: #94a3b8;
-  --color-mediascout-white: #FFFFFF;
-  --color-mediascout-success: #10B981;
-  --color-mediascout-error: #EF4444;
-  --color-mediascout-warning: #F59E0B;
-  --color-mediascout-info: #3B82F6;
+  /* Border radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 
-  /* Convenience aliases */
-  --color-mediascout-slate: #0f172a;
-  --color-mediascout-gray: #94a3b8;
-
-  /* Mediascout border color */
-  --color-mediascout-navy-border: rgba(2, 6, 23, 0.1);
-
-  /* Radius - 8px grid system */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-
-  /* Font family */
-  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Fira Code", "Courier New", monospace;
+  /* Custom animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-fade-in: fade-in 0.5s ease-out;
+  --animate-slide-in: slide-in 0.3s ease-out;
 }
 
 :root {
-  /* Base radius - 8px (Mediascout grid) */
-  --radius: 0.5rem;
+  --radius: 0.625rem;
 
   /* Light Mode Colors - Mediascout Palette */
   --background: #FFFFFF;
@@ -82,127 +78,110 @@
   --popover: #FFFFFF;
   --popover-foreground: #020617;
 
-  /* Primary = Brand Orange */
   --primary: #F25802;
   --primary-foreground: #FFFFFF;
 
-  /* Secondary = Navy Deep */
-  --secondary: #020617;
-  --secondary-foreground: #FFFFFF;
+  --secondary: #C0C0C0;
+  --secondary-foreground: #020617;
 
-  /* Muted = Navy Deep for readable secondary text */
-  --muted: #f1f5f9;
+  --muted: oklch(0.97 0 0);
   --muted-foreground: #020617;
 
-  /* Accent = Brand Orange (sparingly) */
   --accent: #F25802;
   --accent-foreground: #FFFFFF;
 
-  /* Destructive = Error Red */
-  --destructive: #EF4444;
+  --destructive: oklch(0.577 0.245 27.325);
 
-  /* Border = Silver */
   --border: #C0C0C0;
   --input: #C0C0C0;
 
-  /* Ring = Brand Orange for focus states */
   --ring: #F25802;
 
-  /* Chart colors using Mediascout palette */
   --chart-1: #F25802;
   --chart-2: #020617;
-  --chart-3: #10B981;
-  --chart-4: #3B82F6;
-  --chart-5: #F59E0B;
+  --chart-3: #C0C0C0;
 
-  /* Sidebar - Light mode */
   --sidebar: #FFFFFF;
   --sidebar-foreground: #020617;
   --sidebar-primary: #F25802;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #f1f5f9;
+  --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: #020617;
   --sidebar-border: #C0C0C0;
   --sidebar-ring: #F25802;
 }
 
 .dark {
-  /* Dark Mode Colors - Mediascout Palette */
   --background: #020617;
   --foreground: #FFFFFF;
 
-  /* Cards use Navy Light for elevation */
   --card: #0f172a;
   --card-foreground: #FFFFFF;
 
   --popover: #0f172a;
   --popover-foreground: #FFFFFF;
 
-  /* Primary = Brand Orange (same in dark mode) */
   --primary: #F25802;
   --primary-foreground: #FFFFFF;
 
-  /* Secondary = Navy Light */
   --secondary: #0f172a;
   --secondary-foreground: #FFFFFF;
 
-  /* Muted = Navy Light for subtle elements */
-  --muted: #0f172a;
+  --muted: oklch(0.25 0 0);
   --muted-foreground: #94a3b8;
 
-  /* Accent = Brand Orange */
   --accent: #F25802;
   --accent-foreground: #FFFFFF;
 
-  /* Destructive = Error Red */
-  --destructive: #EF4444;
+  --destructive: oklch(0.704 0.191 22.216);
 
-  /* Border = Silver at reduced opacity */
-  --border: rgba(192, 192, 192, 0.2);
-  --input: rgba(192, 192, 192, 0.3);
+  --border: #C0C0C0;
+  --input: #C0C0C0;
 
-  /* Ring = Brand Orange */
   --ring: #F25802;
 
-  /* Chart colors - brighter for dark mode */
-  --chart-1: #F25802;
-  --chart-2: #94a3b8;
-  --chart-3: #10B981;
-  --chart-4: #3B82F6;
-  --chart-5: #F59E0B;
-
-  /* Sidebar - Dark mode uses Navy Light */
-  --sidebar: #0f172a;
+  --sidebar: #020617;
   --sidebar-foreground: #FFFFFF;
   --sidebar-primary: #F25802;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #020617;
+  --sidebar-accent: oklch(0.25 0 0);
   --sidebar-accent-foreground: #FFFFFF;
-  --sidebar-border: rgba(192, 192, 192, 0.2);
+  --sidebar-border: #C0C0C0;
   --sidebar-ring: #F25802;
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-sans);
   }
 }
 
-/* Mediascout Button Glow Effect */
-@layer utilities {
-  .mediascout-glow {
-    transition: all 200ms ease;
+@layer components {
+  .container {
+    @apply mx-auto w-full max-w-screen-2xl px-4 sm:px-6 lg:px-8;
   }
-  .mediascout-glow:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(242, 88, 2, 0.3);
-  }
-  .mediascout-glow:active {
-    transform: translateY(0);
-    box-shadow: 0 5px 15px rgba(242, 88, 2, 0.2);
-  }
+}
+
+/* Custom Animations */
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in {
+  from { transform: translateY(-10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }

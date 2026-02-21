@@ -44,6 +44,9 @@ const DEFAULT_CONFIG: Required<StorageConfig> = {
 /**
  * Allowed file extensions mapped from MIME types
  */
+/** Maximum allowed length for a filename (common filesystem limit) */
+const MAX_FILENAME_LENGTH = 255;
+
 const ALLOWED_EXTENSIONS = new Set([
   ".jpg",
   ".jpeg",
@@ -77,9 +80,9 @@ export function sanitizeFilename(filename: string): string {
   }
 
   // Limit filename length
-  if (sanitized.length > 255) {
+  if (sanitized.length > MAX_FILENAME_LENGTH) {
     const ext = sanitized.slice(sanitized.lastIndexOf("."));
-    const name = sanitized.slice(0, 255 - ext.length);
+    const name = sanitized.slice(0, MAX_FILENAME_LENGTH - ext.length);
     return name + ext;
   }
 

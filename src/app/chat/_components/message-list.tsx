@@ -69,6 +69,11 @@ function formatTimestamp(date: Date): string {
   }).format(date);
 }
 
+// ---- Constants ----
+
+/** Duration in milliseconds to show the "copied" check icon before reverting */
+const COPY_FEEDBACK_TIMEOUT_MS = 2000;
+
 // ---- Sub-components ----
 
 function CopyButton({ text }: { text: string }) {
@@ -79,7 +84,7 @@ function CopyButton({ text }: { text: string }) {
       await navigator.clipboard.writeText(text);
       setCopied(true);
       toast.success("Copied to clipboard");
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => setCopied(false), COPY_FEEDBACK_TIMEOUT_MS);
     } catch {
       toast.error("Failed to copy");
     }

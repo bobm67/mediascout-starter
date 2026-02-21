@@ -1,56 +1,54 @@
-import { Manrope, Fira_Code } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { AppTopLoader } from "@/components/AppTopLoader";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
-import App from "next/app";
-import { AppTopLoader } from "@/components/AppTopLoader";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
 });
 
-const firaCode = Fira_Code({
-  variable: "--font-fira-code",
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "Agentic Coding Boilerplate",
-    template: "%s | Agentic Coding Boilerplate",
+    default: "Mediascout Starter Kit",
+    template: "%s | Mediascout Starter Kit",
   },
   description:
-    "Complete agentic coding boilerplate with authentication, database, AI integration, and modern tooling - perfect for building AI-powered applications and autonomous agents by Leon van Zyl",
+    "Complete starter kit with authentication, database, AI integration, and modern tooling for building AI-powered applications",
   keywords: [
     "Next.js",
     "React",
     "TypeScript",
     "AI",
     "OpenRouter",
-    "Boilerplate",
+    "Mediascout",
     "Authentication",
     "PostgreSQL",
   ],
-  authors: [{ name: "Leon van Zyl" }],
-  creator: "Leon van Zyl",
+  authors: [{ name: "Mediascout" }],
+  creator: "Mediascout",
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "Agentic Coding Boilerplate",
-    title: "Agentic Coding Boilerplate",
+    siteName: "Mediascout Starter Kit",
+    title: "Mediascout Starter Kit",
     description:
-      "Complete agentic coding boilerplate with authentication, database, AI integration, and modern tooling",
+      "Complete starter kit with authentication, database, AI integration, and modern tooling",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Agentic Coding Boilerplate",
+    title: "Mediascout Starter Kit",
     description:
-      "Complete agentic coding boilerplate with authentication, database, AI integration, and modern tooling",
+      "Complete starter kit with authentication, database, AI integration, and modern tooling",
   },
   robots: {
     index: true,
@@ -58,13 +56,12 @@ export const metadata: Metadata = {
   },
 };
 
-// JSON-LD structured data for SEO
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Agentic Coding Boilerplate",
+  name: "Mediascout Starter Kit",
   description:
-    "Complete agentic coding boilerplate with authentication, database, AI integration, and modern tooling",
+    "Complete starter kit with authentication, database, AI integration, and modern tooling",
   applicationCategory: "DeveloperApplication",
   operatingSystem: "Any",
   offers: {
@@ -73,8 +70,8 @@ const jsonLd = {
     priceCurrency: "USD",
   },
   author: {
-    "@type": "Person",
-    name: "Leon van Zyl",
+    "@type": "Organization",
+    name: "Mediascout",
   },
 };
 
@@ -92,7 +89,8 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${manrope.variable} ${firaCode.variable} flex min-h-screen flex-col font-sans antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         <ThemeProvider
           attribute="class"
@@ -101,11 +99,13 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AppTopLoader />
-          <SiteHeader />
-          <main id="main-content" className="flex-grow">
-            {children}
-          </main>
-          <SiteFooter />
+          <div className="relative flex min-h-screen flex-col">
+            <SiteHeader />
+            <div className="flex-1" suppressHydrationWarning>
+              {children}
+            </div>
+            <SiteFooter />
+          </div>
           <Toaster richColors position="top-right" />
         </ThemeProvider>
       </body>
