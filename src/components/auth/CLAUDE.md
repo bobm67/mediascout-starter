@@ -1,30 +1,59 @@
-# Auth Components Guidelines
+# Auth Components
 
-## Subagent Requirement
-**ALWAYS use subagents for all file operations, testing, debugging, and code changes in this directory.**
+**Parent Context**: [../CLAUDE.md](../CLAUDE.md)
+
+## Contents
+
+All components are Client Components (`"use client"`):
+
+| File | Purpose |
+|------|---------|
+| `sign-in-button.tsx` | Sign-in form with email/password + Google OAuth |
+| `sign-up-form.tsx` | Registration form |
+| `forgot-password-form.tsx` | Password recovery request |
+| `reset-password-form.tsx` | Password reset with token |
+| `sign-out-button.tsx` | Logout button |
+| `user-profile.tsx` | User profile display/avatar |
 
 ## Rules
 
-### Client-Side Auth
-- Import hooks from `@/lib/auth-client`
-- All auth components here are client components (`"use client"`)
+- **MUST** import auth hooks from `@/lib/auth-client` (NEVER from `@/lib/auth`)
+- **MUST** handle loading and error states for all auth actions
+- **MUST** show user feedback (toast, inline message) for all actions
+- **MUST** validate forms client-side before submission
+- **MUST** use shadcn/ui components from `../ui/` for form elements
+- **SHOULD** follow existing patterns in this folder when adding new auth components
 
-### Existing Components
-- `sign-in-button.tsx` - Sign in form
-- `sign-up-form.tsx` - Registration form
-- `forgot-password-form.tsx` - Password recovery
-- `reset-password-form.tsx` - Password reset
-- `sign-out-button.tsx` - Logout button
-- `user-profile.tsx` - User profile display
+## Pattern
 
-### Best Practices
-- Follow existing patterns in this folder
-- Handle loading and error states
-- Show user feedback for all actions
-- Validate forms client-side before submission
-- Use shadcn/ui components from `../ui/`
+```typescript
+"use client"
 
-## After Changes
+import { useState } from "react"
+import { signIn } from "@/lib/auth-client"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+
+export function SignInButton() {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  async function handleSignIn(formData: FormData) {
+    setLoading(true)
+    setError(null)
+    // ... auth logic with error handling
+    setLoading(false)
+  }
+
+  return (/* form with loading/error states */)
+}
+```
+
+## Search Hints
 ```bash
-pnpm run lint && pnpm run typecheck
+# Find auth hook usage
+rg -n "from \"@/lib/auth-client\"" src/components/auth/
+
+# Find which pages use auth components
+rg -n "from \"@/components/auth/" src/app/
 ```

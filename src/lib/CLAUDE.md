@@ -1,46 +1,95 @@
-# Lib Guidelines
+# Lib -- Core Utilities and Configuration
 
-## Subagent Requirement
-**ALWAYS use subagents for all file operations, testing, debugging, and code changes in this directory.**
+**Parent Context**: [../../CLAUDE.md](../../CLAUDE.md)
+
+## Directory Contents
+
+| File | Purpose | Side |
+|------|---------|------|
+| `auth.ts` | BetterAuth server configuration | Server only |
+| `auth-client.ts` | BetterAuth client hooks (useSession, signIn, signUp, signOut) | Client only |
+| `db.ts` | Drizzle ORM database connection (PostgreSQL) | Server only |
+| `schema.ts` | Drizzle ORM table definitions | Server only |
+| `storage.ts` | File upload abstraction (Vercel Blob / local fallback) | Server only |
+| `session.ts` | Auth helpers: requireAuth(), getOptionalSession(), protectedRoutes | Server only |
+| `env.ts` | Zod validation for environment variables | Both |
+| `utils.ts` | Utility functions (cn for Tailwind class merging) | Both |
 
 ## Rules
 
-### File Purposes
-- `auth.ts` - Better Auth server configuration (server-side only)
-- `auth-client.ts` - Better Auth client hooks (client-side only)
-- `db.ts` - Drizzle database connection
-- `schema.ts` - Drizzle ORM schema definitions
-- `storage.ts` - File storage abstraction (Vercel Blob / local)
-- `utils.ts` - Utility functions (cn, etc.)
+- **MUST NOT** import client-side code (`auth-client.ts`) in server files
+- **MUST NOT** import server-only code (`auth.ts`, `db.ts`, `schema.ts`) in client components
+- **MUST** keep each file focused on a single responsibility
+- **MUST** export only what is needed
 
-### Database (Drizzle + PostgreSQL)
-- PostgreSQL is the database (NOT SQLite, MySQL)
-- Schema changes require migration:
-  ```bash
-  pnpm run db:generate
-  pnpm run db:migrate
-  ```
+## Authentication
 
-### Authentication
-- Server: `import { auth } from "@/lib/auth"`
-- Client: `import { useSession } from "@/lib/auth-client"`
+### Server Side
+```typescript
+import { auth } from "@/lib/auth"
+import { requireAuth, getOptionalSession } from "@/lib/session"
 
-### File Storage
+// In protected Server Components:
+const session = await requireAuth() // redirects if unauthenticated
+
+// In API routes:
+const session = await auth.api.getSession({ headers: await headers() })
+```
+
+### Client Side
+```typescript
+import { useSession, signIn, signUp, signOut } from "@/lib/auth-client"
+
+const { data: session, isPending } = useSession()
+```
+
+## Database (Drizzle + PostgreSQL)
+
+- Database is PostgreSQL (MUST NOT use SQLite or MySQL)
+- Schema defined in `schema.ts` using Drizzle `pgTable`
+- Connection in `db.ts` uses `POSTGRES_URL` env var
+
+### Schema Change Workflow
+```bash
+# 1. Edit src/lib/schema.ts
+# 2. Generate migration
+pnpm run db:generate
+# 3. Apply migration
+pnpm run db:migrate
+```
+
+### Quick Push (development only)
+```bash
+pnpm run db:push
+```
+
+## File Storage
+
 ```typescript
 import { upload, deleteFile } from "@/lib/storage"
 const result = await upload(buffer, "filename.png", "folder")
 await deleteFile(result.url)
 ```
-- Auto-switches: local (dev) ↔ Vercel Blob (production)
+Auto-switches: local filesystem (dev) <-> Vercel Blob (production via `BLOB_READ_WRITE_TOKEN`).
 
-### Best Practices
-- Keep lib files focused on single responsibility
-- Export only what's needed
-- Use TypeScript types/interfaces
-- Document complex functions
-- Don't import client code in server files and vice versa
+## Environment Variables
 
-## After Changes
+Validated with Zod in `env.ts`. Two schemas:
+- `serverEnvSchema` -- server-only variables (POSTGRES_URL, BETTER_AUTH_SECRET, etc.)
+- `clientEnvSchema` -- browser-safe variables (NEXT_PUBLIC_APP_URL)
+
+```typescript
+import { getServerEnv, getClientEnv } from "@/lib/env"
+```
+
+## Search Hints
 ```bash
-pnpm run lint && pnpm run typecheck
+# Find all lib exports
+rg -n "^export " src/lib/
+
+# Find schema tables
+rg -n "pgTable" src/lib/schema.ts
+
+# Find auth usage
+rg -n "from \"@/lib/auth" src/
 ```

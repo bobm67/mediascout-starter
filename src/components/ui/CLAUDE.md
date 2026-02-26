@@ -1,28 +1,32 @@
-# UI Components Guidelines (shadcn/ui)
+# UI Components (shadcn/ui)
 
-## Subagent Requirement
-**ALWAYS use subagents for all file operations, testing, debugging, and code changes in this directory.**
+**Parent Context**: [../CLAUDE.md](../CLAUDE.md)
+
+## Contents
+
+Base primitives managed by shadcn/ui:
+`avatar.tsx`, `badge.tsx`, `button.tsx`, `card.tsx`, `dialog.tsx`,
+`dropdown-menu.tsx`, `dropdown-menu-sub.tsx`, `github-stars.tsx`,
+`input.tsx`, `label.tsx`, `mode-toggle.tsx`, `separator.tsx`,
+`sheet.tsx`, `skeleton.tsx`, `sonner.tsx`, `spinner.tsx`, `textarea.tsx`
 
 ## Rules
 
-### shadcn/ui Components
-- These are shadcn/ui base components
-- Modify sparingly - prefer composition over modification
-- Add new shadcn components via CLI when possible
+- **MUST NOT** modify base shadcn components unless absolutely necessary
+- **MUST** create wrapper components in parent `src/components/` folder instead of editing these
+- **MUST** keep all accessibility features (ARIA attributes, keyboard navigation) intact
+- **MUST** support dark mode via CSS variables defined in `src/app/globals.css`
+- **SHOULD** add new shadcn components via CLI: `pnpm dlx shadcn@latest add <component>`
 
-### Styling
-- Use standard Tailwind CSS classes
-- Avoid custom colors unless explicitly requested
-- Support dark mode with Tailwind dark: variants
-- Use CSS variables defined in globals.css
+## Styling
 
-### Best Practices
-- Don't modify base shadcn components unless necessary
-- Create wrapper components in parent `components/` folder instead
-- Keep accessibility features intact
-- Test dark mode appearance
+These components use:
+- CSS variables from `globals.css` (e.g., `--background`, `--foreground`, `--primary`)
+- `class-variance-authority` for variant definitions
+- `cn()` from `@/lib/utils` for class merging
+- Radix UI primitives for behavior (dialog, dropdown, etc.)
 
-## After Changes
-```bash
-pnpm run lint && pnpm run typecheck
-```
+## Overlay Backgrounds
+
+All overlays (dialog, dropdown-menu, sheet) **MUST** have solid backgrounds.
+If adding a new shadcn component with an overlay, verify it does not use transparent backgrounds.
